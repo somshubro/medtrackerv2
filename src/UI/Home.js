@@ -7,20 +7,13 @@ import ViewMedicines from "./ViewMedicines";
 
 const Home = (props) => {
   const [mode, setMode] = useState("home");
-  const [medicineList, setMedicineList] = useState([]);
+  const [medicineList, setMedicineList] = useState(props.data);
   const add = "Add medicines";
   const view = "View medicines";
 
-  const addMedicineHandler = (mName, mTime) => {
+  const addMedicineHandler = (medicine) => {
     setMedicineList((prevMedicineList) => {
-      return [
-        prevMedicineList,
-        {
-          id: Math.random().toString(),
-          medicineName: mName,
-          medicineTime: mTime,
-        },
-      ];
+      return [medicine, ...prevMedicineList]
     });
   };
 
@@ -48,8 +41,8 @@ const Home = (props) => {
       {mode === add && (
         <AddMedicine
           onAdd={addMedicineHandler}
-          medicineTime="Enter the time at which you're supposed to take this medicine"
-          medicineName="Enter the medicine name"
+          titleName="Enter the time at which you're supposed to take this medicine"
+          titleTime="Enter the medicine name"
           onHomePage={pageHandler}
           title={add}
         />
@@ -57,7 +50,7 @@ const Home = (props) => {
       {mode === view && (
         <ViewMedicines onHomePage={pageHandler} medicines={medicineList} title={view} />
       )}
-      <Footer content="Copyright 2021" />
+      {/* <Footer content="Copyright 2021" /> */}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import Button from "./Button";
 import classes from "./ViewMedicines.module.css";
+import MedicineItem from "./MedicineItem";
 
 const ViewMedicines = (props) => {
   const homePage = () => {
@@ -7,22 +8,20 @@ const ViewMedicines = (props) => {
     props.onHomePage(home);
   };
 
-  return (
-    <div className={classes.view} >
-    <h4 className="card-title">{props.title}</h4>
-      <ul className="list-group">
-        {props.medicines.map((medicine) => (
-          <li
-            className="list-group-item d-flex justify-content-between align-items-center"
-            key={medicine.id}
-          >
-            {medicine.medicineName}
-            <span className="badge badge-primary badge-pill">
-              {medicine.medicineTime}
-            </span>
-          </li>
-        ))}
+  const medicines = props.medicines.map((medicine) => {
+    return (
+      <ul key={medicine.id} className={`${"list-group"} ${classes.view}`}>
+        <MedicineItem
+          medicineName={medicine.medicineName}
+          medicineTime={medicine.medicineTime}
+        />
       </ul>
+    );
+  });
+  return (
+    <div className={classes.view}>
+      <h4 className="card-title">{props.title}</h4>
+      {medicines}
       <Button
         onClick={homePage}
         className="btn btn-primary"

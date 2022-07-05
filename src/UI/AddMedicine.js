@@ -8,7 +8,7 @@ const AddMedicine = (props) => {
 
   const addHandler = (event) => {
     event.preventDefault();
-    props.onAdd(medicine, time);
+    props.onAdd(medicineData);
     setMedicine("");
     setTime("");
   };
@@ -26,14 +26,18 @@ const AddMedicine = (props) => {
     props.onHomePage(home);
   };
 
+  const medicineData = {
+    medicineName: medicine,
+    medicineTime: time,
+    id: Math.random().toString(),
+  };
+
   return (
     <div className={classes.add}>
-    <h4 className="card-title">{props.title}</h4>
+      <h4 className="card-title">{props.title}</h4>
       <form>
         <div className="form-group">
-          <label htmlFor="exampleFormControlTextarea1">
-            {props.medicineName}
-          </label>
+          <label htmlFor="exampleFormControlTextarea1">{props.titleName}</label>
           <input
             type="text"
             onChange={medicineChangeHandler}
@@ -42,7 +46,7 @@ const AddMedicine = (props) => {
           ></input>
           <div className={classes.time}>
             <label htmlFor="exampleFormControlTextarea1">
-              {props.medicineTime}
+              {props.titleTime}
             </label>
             <div>
               <input
@@ -60,7 +64,11 @@ const AddMedicine = (props) => {
           />
         </div>
       </form>
-      <Button onClick={homePage} className="btn btn-primary" content="Back to Home" />
+      <Button
+        onClick={homePage}
+        className="btn btn-primary"
+        content="Back to Home"
+      />
     </div>
   );
 };
