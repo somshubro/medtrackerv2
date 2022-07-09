@@ -9,7 +9,11 @@ const Clock = () => {
 
   const updateTime = () => {
     const newTime = new Date();
-    const setNewtime = newTime.getHours() + ":" + newTime.getMinutes();
+    let minutes = newTime.getMinutes();
+    if (minutes % 10 === 0) {
+      minutes = "0" + minutes;
+    }
+    const setNewtime = newTime.getHours() + ":" + minutes;
     setTime(setNewtime);
   };
 

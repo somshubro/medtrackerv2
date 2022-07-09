@@ -41,8 +41,8 @@ const Home = (props) => {
       {mode === add && (
         <AddMedicine
           onAdd={addMedicineHandler}
-          titleName="Enter the time at which you're supposed to take this medicine"
-          titleTime="Enter the medicine name"
+          titleName="Enter the medicine name"
+          titleTime="Enter the time at which you're supposed to take this medicine"
           onHomePage={pageHandler}
           title={add}
         />

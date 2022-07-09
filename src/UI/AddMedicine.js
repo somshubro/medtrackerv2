@@ -1,16 +1,50 @@
 import { useState } from "react";
 import classes from "./AddMedicine.module.css";
 import Button from "./Button";
+import Modal from "./Modal";
 
 const AddMedicine = (props) => {
   const [medicine, setMedicine] = useState("");
   const [time, setTime] = useState("");
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
 
   const addHandler = (event) => {
     event.preventDefault();
+    if (medicine.trim().length === 0 && time.trim().length === 0) {
+      setError({
+        title: "Invalid input",
+        message: "Please enter valid medicine name and time",
+      });
+      return;
+    }
+    if (medicine.trim().length === 0) {
+      setError({
+        title: "Invalid medicine name",
+        message: "Please enter a valid medicine name",
+      });
+      return;
+    }
+    if (time.trim().length === 0) {
+      setError({ title: "Invalid time", message: "Please enter a valid time" });
+      return;
+    }
     props.onAdd(medicineData);
     setMedicine("");
     setTime("");
+    setSuccess({
+      title: "Successfully added!",
+      message:
+        "Your medicines have been successfully added. You can view them from reminders.",
+    });
+  };
+
+  const errorHandler = () => {
+    setError(null);
+  };
+
+  const successHandler = () => {
+    setSuccess(null);
   };
 
   const medicineChangeHandler = (event) => {
@@ -34,6 +68,20 @@ const AddMedicine = (props) => {
 
   return (
     <div className={classes.add}>
+      {error && (
+        <Modal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
+      {success && (
+        <Modal
+          title={success.title}
+          message={success.message}
+          onConfirm={successHandler}
+        />
+      )}
       <h4 className="card-title">{props.title}</h4>
       <form>
         <div className="form-group">
