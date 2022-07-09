@@ -50,7 +50,7 @@ const Home = (props) => {
       {mode === view && (
         <ViewMedicines onHomePage={pageHandler} medicines={medicineList} title={view} />
       )}
-      {/* <Footer content="Copyright 2021" /> */}
+      <Footer content="Copyright 2022 Somshubro Chatterjee" />
     </div>
   );
 };

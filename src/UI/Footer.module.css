@@ -1,10 +1,17 @@
 .footer {
-  height: 10%;
+  height: 1%;
   width: 100%;
   position: absolute;
-  bottom: 0;
-  background-color: #007bff;
-  color: #fff;
+  /* left: 0;
+  bottom: 0; */
+  margin-bottom: 10%;
+  margin-top: 8%;
   text-align: center;
-  padding-top: 1%;
+}
+
+@media only screen and (min-width: 768px) {
+  .footer {
+    margin-top: 2%;
+    margin-bottom: 5%;
+  }
 }
