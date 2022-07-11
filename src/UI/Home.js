@@ -13,8 +13,30 @@ const Home = (props) => {
 
   const addMedicineHandler = (medicine) => {
     setMedicineList((prevMedicineList) => {
-      return [medicine, ...prevMedicineList]
+      return [medicine, ...prevMedicineList];
     });
+  };
+
+  const statusHandler = (id) => {
+    const newMedicineList = medicineList.map((medicine) => {
+      if (medicine.id === id) {
+        const updatedMedicine = {
+          ...medicine,
+          status: "Good job!",
+          statusClass: "btn btn-success btn-sm"
+        };
+        return updatedMedicine;
+      }
+      return medicine;
+    });
+    setMedicineList(newMedicineList);
+  };
+
+  const deleteHandler = (id) => {
+    const newMedicineList = medicineList.filter((medicine) => {
+      return medicine.id !== id;
+    });
+    setMedicineList(newMedicineList);
   };
 
   const pageHandler = (input) => {
@@ -48,7 +70,13 @@ const Home = (props) => {
         />
       )}
       {mode === view && (
-        <ViewMedicines onHomePage={pageHandler} medicines={medicineList} title={view} />
+        <ViewMedicines
+          onHomePage={pageHandler}
+          onStatus={statusHandler}
+          onDelete={deleteHandler}
+          medicines={medicineList}
+          title={view}
+        />
       )}
       <Footer content="Copyright 2022 Somshubro Chatterjee" />
     </div>

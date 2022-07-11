@@ -63,6 +63,8 @@ const AddMedicine = (props) => {
   const medicineData = {
     medicineName: medicine,
     medicineTime: time,
+    status: "Take",
+    statusClass: "btn btn-primary btn-sm",
     id: Math.random().toString(),
   };
 
