@@ -1,10 +1,19 @@
 import Clock from "./Clock";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  const homeHandler = (event) => {
+    event.preventDefault();
+    const home = "home";
+    props.onHomePage(home);
+  };
   return (
     <div>
       <nav className="navbar navbar-dark bg-primary">
-        <a className="navbar-brand" href="http://localhost:3000/">
+        <a
+          onClick={homeHandler}
+          className="navbar-brand"
+          href="http://localhost:3000/"
+        >
           MedTracker
         </a>
         <Clock />

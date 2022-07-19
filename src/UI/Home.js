@@ -23,7 +23,7 @@ const Home = (props) => {
         const updatedMedicine = {
           ...medicine,
           status: "Good job!",
-          statusClass: "btn btn-success btn-sm"
+          statusClass: "btn btn-success btn-sm",
         };
         return updatedMedicine;
       }
@@ -39,13 +39,40 @@ const Home = (props) => {
     setMedicineList(newMedicineList);
   };
 
+  const resetHandler = () => {
+    const newMedicineList = medicineList.map((medicine) => {
+      const updatedMedicine = {
+        ...medicine,
+        status: "Take",
+        statusClass: "btn btn-primary btn-sm",
+      };
+      return updatedMedicine;
+    });
+    setMedicineList(newMedicineList);
+  };
+
+  const editHandler = (medName, medTime, id) => {
+    const editedMedicineList = medicineList.map((medicine) => {
+      if (medicine.id === id) {
+        const editedMedicine = {
+          ...medicine,
+          medicineName: medName,
+          medicineTime: medTime,
+        };
+        return editedMedicine;
+      }
+      return medicine;
+    });
+    setMedicineList(editedMedicineList);
+  };
+
   const pageHandler = (input) => {
     setMode(input);
   };
 
   return (
     <div>
-      <NavBar />
+      <NavBar onHomePage={pageHandler} />
       {mode === "home" && (
         <div>
           <Card
@@ -67,6 +94,9 @@ const Home = (props) => {
           titleTime="Enter the time at which you're supposed to take this medicine"
           onHomePage={pageHandler}
           title={add}
+          button="Add"
+          mode="add"
+          back="Back to Home"
         />
       )}
       {mode === view && (
@@ -74,6 +104,8 @@ const Home = (props) => {
           onHomePage={pageHandler}
           onStatus={statusHandler}
           onDelete={deleteHandler}
+          onReset={resetHandler}
+          onEdit={editHandler}
           medicines={medicineList}
           title={view}
         />

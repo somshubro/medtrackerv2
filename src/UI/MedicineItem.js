@@ -15,7 +15,14 @@ const MedicineItem = (props) => {
           >
             {props.medDisplay}
           </button>
-          <button className="btn btn-primary btn-sm">Edit</button>
+          <button
+            onClick={() => {
+              props.onUpdate(props.id);
+            }}
+            className="btn btn-primary btn-sm"
+          >
+            Edit
+          </button>
           <button
             onClick={() => {
               props.onRemove(props.id);

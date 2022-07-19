@@ -4,8 +4,8 @@ import Button from "./Button";
 import Modal from "./Modal";
 
 const AddMedicine = (props) => {
-  const [medicine, setMedicine] = useState("");
-  const [time, setTime] = useState("");
+  const [medicine, setMedicine] = useState(props.medicineName);
+  const [time, setTime] = useState(props.medicineTime);
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
 
@@ -29,14 +29,23 @@ const AddMedicine = (props) => {
       setError({ title: "Invalid time", message: "Please enter a valid time" });
       return;
     }
-    props.onAdd(medicineData);
-    setMedicine("");
-    setTime("");
-    setSuccess({
-      title: "Successfully added!",
-      message:
-        "Your medicines have been successfully added. You can view them from reminders.",
-    });
+    if (props.mode === "add") {
+      props.onAdd(medicineData);
+      setMedicine("");
+      setTime("");
+      setSuccess({
+        title: "Successfully added!",
+        message:
+          "Your medicines have been successfully added. You can view them from reminders.",
+      });
+    }
+    if (props.mode === "edit") {
+      props.onEdit(medicine, time, props.medicineId);
+      setSuccess({
+        title: "Successfully saved!",
+        message: "Your medicines have been successfully saved.",
+      });
+    }
   };
 
   const errorHandler = () => {
@@ -56,8 +65,14 @@ const AddMedicine = (props) => {
   };
 
   const homePage = () => {
-    const home = "home";
-    props.onHomePage(home);
+    if (props.button === "Add") {
+      const home = "home";
+      props.onHomePage(home);
+    }
+    if (props.button === "Save") {
+      const view = "view";
+      props.onReminders(view);
+    }
   };
 
   const medicineData = {
@@ -110,14 +125,14 @@ const AddMedicine = (props) => {
           <Button
             onClick={addHandler}
             className="btn btn-primary"
-            content="Add"
+            content={props.button}
           />
         </div>
       </form>
       <Button
         onClick={homePage}
         className="btn btn-primary"
-        content="Back to Home"
+        content={props.back}
       />
     </div>
   );
