@@ -97,6 +97,8 @@ const Home = (props) => {
           button="Add"
           mode="add"
           back="Back to Home"
+          medicineName=""
+          medicineTime=""
         />
       )}
       {mode === view && (

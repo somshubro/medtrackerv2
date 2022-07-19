@@ -89,6 +89,7 @@ const AddMedicine = (props) => {
         <Modal
           title={error.title}
           message={error.message}
+          button="Okay"
           onConfirm={errorHandler}
         />
       )}
@@ -96,6 +97,7 @@ const AddMedicine = (props) => {
         <Modal
           title={success.title}
           message={success.message}
+          button="Okay"
           onConfirm={successHandler}
         />
       )}

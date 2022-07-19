@@ -3,21 +3,26 @@ import classes from "./ViewMedicines.module.css";
 import MedicineItem from "./MedicineItem";
 import { useState } from "react";
 import AddMedicine from "./AddMedicine";
-// import Modal from "./Modal";
+import Modal from "./Modal";
 
 let medName = "";
 let medTime = "";
 let medicineId = undefined;
+let deleteMedicineId = undefined;
 
 const insertMedicine = (mName, mTime) => {
   medName = mName;
   medTime = mTime;
 };
 
+const confirmHandler = (id) => {
+  deleteMedicineId = id;
+};
+
 const ViewMedicines = (props) => {
-  // const [isDelete, setIsDelete] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const [mode, setMode] = useState("view");
-  // let medicineEdit = {};
+  const [noMedicine, setNoMedicine] = useState(props.medicines.length === 0);
 
   const homePage = () => {
     const home = "home";
@@ -29,7 +34,20 @@ const ViewMedicines = (props) => {
   };
 
   const removeHandler = (id) => {
-    props.onDelete(id);
+    setIsDelete(true);
+    confirmHandler(id);
+  };
+
+  const cancelHandler = () => {
+    setIsDelete(false);
+  };
+
+  const deleteConfirmHandler = () => {
+    props.onDelete(deleteMedicineId);
+    setIsDelete(false);
+    if (props.medicines.length === 1) {
+      setNoMedicine(true);
+    }
   };
 
   const updateHandler = (id) => {
@@ -73,6 +91,16 @@ const ViewMedicines = (props) => {
   });
   return (
     <div>
+      {isDelete && (
+        <Modal
+          title="Are you sure?"
+          message="This medicine will be deleted"
+          button="Cancel"
+          additionalButton="Delete"
+          onConfirm={cancelHandler}
+          onDelete={deleteConfirmHandler}
+        />
+      )}
       {mode === "edit" && (
         <AddMedicine
           title="Edit medicine"
@@ -89,17 +117,22 @@ const ViewMedicines = (props) => {
       {mode === "view" && (
         <div className={classes.view}>
           <h4 className="card-title">{props.title}</h4>
+          {noMedicine && (
+            <p>There are currently no medicines to be displayed.</p>
+          )}
           {medicines}
           <Button
             onClick={homePage}
             className="btn btn-primary"
             content="Back to Home"
           />
-          <Button
-            onClick={props.onReset}
-            className="btn btn-primary"
-            content="Reset All"
-          />
+          {!noMedicine && (
+            <Button
+              onClick={props.onReset}
+              className="btn btn-primary"
+              content="Reset All"
+            />
+          )}
         </div>
       )}
     </div>
