@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "./Card";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
@@ -6,13 +6,33 @@ import AddMedicine from "./AddMedicine";
 import ViewMedicines from "./ViewMedicines";
 
 const Home = (props) => {
+
+  const [medicineList, setMedicineList] = useState(
+    JSON.parse(localStorage.getItem("medicines"))
+  );
   const [mode, setMode] = useState("home");
-  const [medicineList, setMedicineList] = useState(props.data);
+
+  useEffect(() => {
+    if (medicineList === null) {
+      setMedicineList([]);
+    } else {
+      setMedicineList(medicineList);
+    }
+  }, [medicineList]);
+
+  useEffect(() => {
+    localStorage.setItem("medicines", JSON.stringify(medicineList));
+  }, [medicineList]);
+
   const add = "Add medicines";
   const view = "View medicines";
 
   const addMedicineHandler = (medicine) => {
     setMedicineList((prevMedicineList) => {
+      localStorage.setItem(
+        "medicines",
+        JSON.stringify([medicine, ...prevMedicineList])
+      );
       return [medicine, ...prevMedicineList];
     });
   };
@@ -30,6 +50,7 @@ const Home = (props) => {
       return medicine;
     });
     setMedicineList(newMedicineList);
+    localStorage.setItem("medicines", JSON.stringify(newMedicineList));
   };
 
   const deleteHandler = (id) => {
@@ -37,6 +58,7 @@ const Home = (props) => {
       return medicine.id !== id;
     });
     setMedicineList(newMedicineList);
+    localStorage.setItem("medicines", JSON.stringify(newMedicineList));
   };
 
   const resetHandler = () => {
@@ -49,6 +71,7 @@ const Home = (props) => {
       return updatedMedicine;
     });
     setMedicineList(newMedicineList);
+    localStorage.setItem("medicines", JSON.stringify(newMedicineList));
   };
 
   const editHandler = (medName, medTime, id) => {
@@ -64,6 +87,7 @@ const Home = (props) => {
       return medicine;
     });
     setMedicineList(editedMedicineList);
+    localStorage.setItem("medicines", JSON.stringify(editedMedicineList));
   };
 
   const pageHandler = (input) => {
