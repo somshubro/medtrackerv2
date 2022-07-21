@@ -3,17 +3,23 @@ import classes from "./Clock.module.css";
 
 const Clock = () => {
   const time = new Date();
-  const displayedTime = time.getHours() + ":" + time.getMinutes();
+
+  const correctMinutes = (minutes) => {
+    if (minutes.toString().length === 1) {
+      minutes = "0" + minutes;
+    }
+    return minutes;
+  };
+
+  const displayedTime =
+    time.getHours() + ":" + correctMinutes(time.getMinutes());
 
   const [currentTime, setTime] = useState(displayedTime);
 
   const updateTime = () => {
     const newTime = new Date();
-    let minutes = newTime.getMinutes();
-    if (minutes % 10 === 0) {
-      minutes = "0" + minutes;
-    }
-    const setNewtime = newTime.getHours() + ":" + minutes;
+    const setNewtime =
+      newTime.getHours() + ":" + correctMinutes(newTime.getMinutes());
     setTime(setNewtime);
   };
 
