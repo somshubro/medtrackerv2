@@ -1,3 +1,4 @@
+import React from "react";
 import Clock from "./Clock";
 
 const NavBar = (props) => {
@@ -7,7 +8,7 @@ const NavBar = (props) => {
     props.onHomePage(home);
   };
   return (
-    <div>
+    <React.Fragment>
       <nav className="navbar navbar-dark bg-primary">
         <a
           onClick={homeHandler}
@@ -18,7 +19,7 @@ const NavBar = (props) => {
         </a>
         <Clock />
       </nav>
-    </div>
+    </React.Fragment>
   );
 };
 

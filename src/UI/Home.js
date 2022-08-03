@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
@@ -95,10 +95,10 @@ const Home = (props) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <NavBar onHomePage={pageHandler} />
       {mode === "home" && (
-        <div>
+        <React.Fragment>
           <Card
             title={add}
             content="You can add medicines from here"
@@ -109,7 +109,7 @@ const Home = (props) => {
             content="You can view your reminders from here"
             onClickButton={pageHandler}
           />{" "}
-        </div>
+        </React.Fragment>
       )}
       {mode === add && (
         <AddMedicine
@@ -137,7 +137,7 @@ const Home = (props) => {
         />
       )}
       <Footer content="Copyright 2022 Somshubro Chatterjee" />
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -1,8 +1,9 @@
+import React from "react";
 import classes from "./MedicineItem.module.css";
 
 const MedicineItem = (props) => {
   return (
-    <div>
+    <React.Fragment>
       <li className="list-group-item d-flex justify-content-between align-items-center">
         {props.medicineName}
         <div className={classes.time}>{props.medicineTime}</div>
@@ -33,7 +34,7 @@ const MedicineItem = (props) => {
           </button>
         </span>
       </li>
-    </div>
+    </React.Fragment>
   );
 };
 

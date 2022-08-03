@@ -1,7 +1,7 @@
 import Button from "./Button";
 import classes from "./ViewMedicines.module.css";
 import MedicineItem from "./MedicineItem";
-import { useState } from "react";
+import React, { useState } from "react";
 import AddMedicine from "./AddMedicine";
 import Modal from "./Modal";
 
@@ -90,7 +90,7 @@ const ViewMedicines = (props) => {
     );
   });
   return (
-    <div>
+    <React.Fragment>
       {isDelete && (
         <Modal
           title="Are you sure?"
@@ -135,7 +135,7 @@ const ViewMedicines = (props) => {
           )}
         </div>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 
